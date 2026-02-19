@@ -3,9 +3,9 @@ name: Reusable ARM Deployment
 on:
   workflow_call:
     inputs:
-      templateFile:
-        required: true
-        type: string
+      # templateFile:
+      #   required: true
+      #   type: string
       parametersFile:
         required: true
         type: string
