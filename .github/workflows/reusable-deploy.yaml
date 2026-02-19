@@ -17,6 +17,9 @@ on:
         required: true
       PAT:
        required: true
+    env:
+      templateFile: ./BH-Reusable-Templates/templates/main.bicep
+      parametersFile: ./BH-Reusable-Templates/parameters/storage.json
 permissions:
   id-token: write
   contents: read
@@ -41,5 +44,5 @@ jobs:
         run: |
           az deployment group create \
             --resource-group "${{ inputs.resourceGroup }}" \
-            --template-file "${{ inputs.templateFile }}" \
-            --parameters @"${{ inputs.parametersFile }}"
+            --template-file "${{ env.templateFile }}" \
+            --parameters @"${{ env.parametersFile }}"
