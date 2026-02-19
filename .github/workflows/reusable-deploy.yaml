@@ -17,12 +17,15 @@ on:
         required: true
       PAT:
        required: true
-    env:
-      templateFile: ./BH-Reusable-Templates/templates/main.bicep
-      parametersFile: ./BH-Reusable-Templates/parameters/storage.json
+
+
 permissions:
   id-token: write
   contents: read
+
+env:
+  templateFile: ./BH-Reusable-Templates/templates/main.bicep
+  parametersFile: ./BH-Reusable-Templates/parameters/storage.json
 
 jobs:
   deploy:
