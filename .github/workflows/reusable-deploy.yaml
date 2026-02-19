@@ -17,6 +17,9 @@ on:
         required: true
       PAT:
        required: true
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
   deploy:
