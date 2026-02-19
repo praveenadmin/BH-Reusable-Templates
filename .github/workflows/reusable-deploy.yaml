@@ -24,8 +24,8 @@ permissions:
   contents: read
 
 env:
-  templateFile: ./BH-Reusable-Templates/templates/main.bicep
-  parametersFile: ./BH-Reusable-Templates/parameters/storage.json
+  templateFile: ./templates/main.bicep
+  parametersFile: ./parameters/storage.json
 
 jobs:
   deploy:
