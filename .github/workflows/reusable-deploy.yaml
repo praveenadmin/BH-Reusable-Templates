@@ -16,31 +16,36 @@ on:
       AZURE_CREDENTIALS:
         required: true
       PAT:
-        required: false   
+       required: true
+
 
 permissions:
   id-token: write
   contents: read
 
+env:
+  templateFile: ./BH-Reusable-Templates/templates/main.bicep
+  parametersFile: ./BH-Reusable-Templates/parameters/storage.json
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout parent repo (BH-Reusable-Templates)
-        uses: actions/checkout@v4
+      - name: Checkout reusable repo
+        uses: actions/checkout@v3
         with:
           repository: praveenadmin/BH-Reusable-Templates
           ref: main
-          token: ${{ secrets.PAT }} 
 
       - name: Azure Login
-        uses: azure/login@v2
+        uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Deploy Bicep / ARM
+      - name: Deploy ARM Template
         run: |
           az deployment group create \
             --resource-group "${{ inputs.resourceGroup }}" \
-            --template-file "${{ inputs.templateFile }}" \
-            --parameters @"${{ inputs.parametersFile }}"
+            --template-file "${{ env.templateFile }}" \
+            --parameters @"${{ env.parametersFile }}"
