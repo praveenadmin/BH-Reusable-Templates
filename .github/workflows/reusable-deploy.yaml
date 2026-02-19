@@ -21,19 +21,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-  with:
-    repository: praveenadmin/BH-Reusable-Templates
-    ref: main
+      - name: Checkout reusable repo
+        uses: actions/checkout@v3
+        with:
+          repository: praveenadmin/BH-Reusable-Templates
+          ref: main
 
       - name: Azure Login
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Deploy Template
+      - name: Deploy ARM Template
         run: |
           az deployment group create \
-            --resource-group ${{ inputs.resourceGroup }} \
-            --template-file ${{ inputs.templateFile }} \
-            --parameters @${{ inputs.parametersFile }}
+            --resource-group "${{ inputs.resourceGroup }}" \
+            --template-file "${{ inputs.templateFile }}" \
+            --parameters @"${{ inputs.parametersFile }}"
