@@ -1,0 +1,36 @@
+name: Reusable ARM Deployment
+
+on:
+  workflow_call:
+    inputs:
+      templateFile:
+        required: true
+        type: string
+      parametersFile:
+        required: true
+        type: string
+      resourceGroup:
+        required: true
+        type: string
+    secrets:
+      AZURE_CREDENTIALS:
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy Template
+        run: |
+          az deployment group create \
+            --resource-group ${{ inputs.resourceGroup }} \
+            --template-file ${{ inputs.templateFile }} \
+            --parameters @${{ inputs.parametersFile }}
