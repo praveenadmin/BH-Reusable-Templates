@@ -15,6 +15,8 @@ on:
     secrets:
       AZURE_CREDENTIALS:
         required: true
+      PAT:
+       required: true
 
 jobs:
   deploy:
